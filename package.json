@@ -1,0 +1,13 @@
+{
+  "name": "ab-test",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "start:ab": "IS_AB_TEST=true node server.js",
+    "deploy": "yarn deploy-blue && yarn deploy-yellow && yarn split-traffic",
+    "deploy-blue": "gcloud app deploy --version=blue --quiet",
+    "deploy-yellow": "gcloud app deploy --version=yellow --quiet",
+    "split-traffic": "gcloud app services set-traffic ab-test-sample --splits blue=50,yellow=50 --split-by cookie --quiet"
+  }
+}
